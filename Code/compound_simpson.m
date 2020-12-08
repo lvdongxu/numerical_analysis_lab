@@ -1,4 +1,4 @@
-function Sn = comsps(f, x, a, b, n)
+function Sn = compound_simpson(f, x, a, b, n)
     h = (b - a) ./ n;
     k = 0 : n-1;
     f1 = subs(f, x, a + k*h + 1/2*h);

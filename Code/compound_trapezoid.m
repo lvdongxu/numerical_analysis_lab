@@ -1,4 +1,4 @@
-function Tn = comt(f, x, a, b, n)
+function Tn = compound_trapezoid(f, x, a, b, n)
 % compound trapezoidal formula 
   
     h = (b - a) ./ n;

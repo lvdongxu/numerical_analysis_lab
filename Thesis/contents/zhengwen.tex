@@ -1,0 +1,58 @@
+% !TEX root = ../main.tex
+
+\chapter*{计算方法大作业: 用不同数值方法计算积分$\int_{0}^{1} \sqrt{x} \ln x  \,dx = -\frac{4}{9}$}
+
+\section*{1. 利用复化梯形公式和复化辛普森公式计算积分}
+
+取不同的步长 $h$，分别用复化梯形公式和复化辛普森公式计算积分，给出误差中关于$h$的函数，并与积分精确值比较两个公式的精度，是否存在一个最小的$h$，使得精度不能再被改善？
+
+本问题可以分解为三个子问题：
+\begin{itemize}
+    \item 利用复化梯形公式求解给定积分问题，并给出误差中关于$h$的函数。
+    \item 利用复化辛普森公式求解给定积分问题，并给出误差中关于$h$的函数。
+    \item 与积分精确值比较复化梯形公式和复化辛普森公式的精度。
+    \item 探究：是否存在一个最小的$h$，使得精度不能再被改善？
+\end{itemize}
+
+根据以上分类，我们用以下四小节来分别解答这四个问题。
+
+\subsection*{1.1 利用复化梯形公式求解给定积分问题，并给出误差中关于$h$的函数}
+
+令$f(x) = \sqrt{x} \ln x$，设将区间$[a,b]$划分为$n$等份，等分点$x_k = a + kh$，$h = \frac{b-a}{n},k=0,1,2,3,...,n$。由此得到复化梯形公式：
+\begin{equation}
+    T_n = \frac{h}{2} [f(a) + 2\sum_{k=1}^{n-1} f(x_k) + f(b) ]
+    \label{eq:compound_trapezoid_general}
+\end{equation}
+复合梯形公式的余项为：
+\begin{equation}
+    R_n(f) = -\frac{b-a}{12} h^2 f^{\prime\prime} (\eta), \\ \eta\in(0,1)
+    \label{eq:compound_trapezoid_R_general}
+\end{equation}
+
+在本题中，$a=0,b=1$，且因为$f(0) \rightarrow -\infty$，我们这里令$f(0) = \lim_{x \rightarrow 0} \sqrt{x} \ln x$，同时$f(1) = 0$。等分点$x_k$也可以写作：$x_k = kh$，其中$h = \frac{1}{n},k=0,1,2,3,...,n$。根据以上分析，$f(x)$的复化梯形公式可以写为：
+\begin{equation}
+    T_n = \frac{h}{2} \left(\lim_{x\rightarrow 0} \sqrt{x} \ln x + 2 \sum_{k=1}^{n-1} \sqrt{kh} \ln(kh)\right)
+    \label{eq:compound_trapezoid_f}
+\end{equation}
+计算$f(x)$的各阶导数：
+\begin{equation}
+    \begin{aligned}
+        f^{(1)}(x) & = \frac{1}{2} x^{-\frac{1}{2}} (\ln x + 2) \\
+        f^{(2)}(x) & = -\frac{1}{4} x^{-\frac{3}{2}} \ln x \\
+        f^{(3)}(x) & = \frac{1}{4} x^{-\frac{5}{2}} (\frac{3}{2} \ln x -1) \\
+        f^{(4)}(x) & = x^{-\frac{7}{2}} - \frac{15}{16} x^{-\frac{7}{2}} \ln x
+    \end{aligned}
+    \label{eq:f_differential}
+\end{equation}
+
+将上式带入公式(\ref{eq:compound_trapezoid_R_general})中，得到$f(x)$复化梯形公式的误差函数：
+\begin{equation}
+    R_n(f) = \frac{h^2}{48} \eta^{-\frac{3}{2}} \ln \eta
+    \label{eq:compound_trapezoid_R_f}
+\end{equation}
+
+\subsection*{1.2 利用复化辛普森公式求解给定积分问题，并给出误差中关于$h$的函数}
+
+\subsection*{1.3 与积分精确值比较复化梯形公式和复化辛普森公式的精度}
+
+\subsection*{1.4 探究：是否存在一个最小的$h$，使得精度不能再被改善？}
