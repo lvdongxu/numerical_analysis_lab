@@ -68,7 +68,7 @@ legend( ...
 );
 
 %% ----- Self-adaptive Simpson ----- %
-y = self_adaptive_simpson(f, x, eps, 1, 1e-4);
+[complexity_simpson, y] = self_adaptive_simpson(f, x, eps, 1, 1e-4, 0);
 
 
 
