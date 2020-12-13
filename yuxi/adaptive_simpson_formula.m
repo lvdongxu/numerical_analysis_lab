@@ -1,0 +1,55 @@
+function [t,s,k,r_all,count,a_all,b_all]=adaptive_simpson_formula(a,b,limit)
+    format long
+    k=1;
+    count=0;
+    x=[a,(a+b)/2,b];
+    [y,count]=f_count(x,count);
+    s(1)=(b-a)/6*(y(1)+4*y(2)+y(3));
+    a_all(1)=a;
+    b_all(1)=b;
+    finish_n(1)=1;
+    while(sum(finish_n)~=0)
+        n=2^(k-1);
+        h=(b-a)/(2*n);
+        x_temp=(a+h/2):h:(b-h/2);
+        y_temp=zeros(1,length(y)-1);
+        s_temp=zeros(1,length(s));
+        a_temp=zeros(1,length(a_all));
+        b_temp=zeros(1,length(b_all));
+        finish_n_temp=finish_n;
+        if(k<2)
+            r(1)=0;
+        else
+            r=reshape([r;zeros(1,length(r))],1,n);
+        end
+        for i=1:n
+            if(finish_n(i)==1)
+                [y_temp(i*2-1),count]=f_count(x_temp(i*2-1),count);
+                [y_temp(i*2),count]=f_count(x_temp(i*2),count);
+                %count=count+2;
+                s_t=s(i);
+                s(i)=h/6*(y(i*2-1)+4*y_temp(i*2-1)+y(i*2));
+                s_temp(i)=h/6*(y(i*2)+4*y_temp(i*2)+y(i*2+1));
+                a_temp(i)=(a_all(i)+b_all(i))/2;
+                b_temp(i)=b_all(i);
+                b_all(i)=(a_all(i)+b_all(i))/2;
+                %fprintf('%f %f ',s(i),s_temp(i));
+                r(i)=abs(s_t-s(i)-s_temp(i))/15;
+                if(r(i)<(limit/n))
+                    finish_n(i)=0;
+                    finish_n_temp(i)=0;
+                end
+            end
+        end
+        y=[reshape([y(1:2*n);y_temp],1,4*n),y(2*n+1)];
+        s=reshape([s;s_temp],1,2*n);
+        a_all=reshape([a_all;a_temp],1,2*n);
+        b_all=reshape([b_all;b_temp],1,2*n);
+        finish_n=reshape([finish_n;finish_n_temp],1,2*n);
+        k=k+1;
+    end
+    %fprintf('\n');
+    k=k-1;
+    t=sum(s);
+    r_all=sum(r);
+end

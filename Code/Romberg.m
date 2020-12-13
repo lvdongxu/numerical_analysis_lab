@@ -11,7 +11,7 @@ function [y, T] = Romberg(f, x, a, b, e, res)
         i = i + 1;
         T(i,1) = compound_trapezoid(f, x, a, b, 2^(i-1));
         for j = 2 : i
-            T(i,j) = 4^j / (4^j-1) * T(i,j-1) - 1/(4^j-1) * T(i-1, j-1);
+            T(i,j) = 4^(j-1) / (4^(j-1)-1) * T(i,j-1) - 1/(4^(j-1)-1) * T(i-1, j-1);
         end
 
     end
