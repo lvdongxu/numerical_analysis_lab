@@ -2,7 +2,7 @@ f = @(x)sqrt(x).*log(x);
 res = -4/9;
 %%
 %tic toc
-num = 28;
+num = 15;
 h_arr = 1./2.^(0:1:num);
 Compound_Trapezoid = zeros(1, num + 1);
 Compound_Trapezoid_Error = zeros(1, num + 1);

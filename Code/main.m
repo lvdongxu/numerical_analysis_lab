@@ -39,36 +39,36 @@ legend( ...
         'Southwest' ...
 );
 
-%% ----- Step-changing Trapezoid ----- %
-[step_changing_trapezoid_T, step_changing_trapezoid_step] = step_changing_trapezoid(f, x, eps, 1, 1e-4);
-step_num_step_changing_trapezoid = 1 ./ step_changing_trapezoid_step;
+% %% ----- Step-changing Trapezoid ----- %
+% [step_changing_trapezoid_T, step_changing_trapezoid_step] = step_changing_trapezoid(f, x, eps, 1, 1e-4);
+% step_num_step_changing_trapezoid = 1 ./ step_changing_trapezoid_step;
 
-%% ----- Romberg ----- %
-[T_ii, T] = Romberg(f, x, eps, 1, 1e-4, result);
-iter                           = size(T, 1);
-compound_trapezoid_res_Romberg = T(:,1)    ;
-Romberg_res                    = diag(T)   ;
-Trapezoid_err                  = abs(result .* ones(iter, 1) - compound_trapezoid_res_Romberg);
-Romberg_err                    = abs(result .* ones(iter, 1) - Romberg_res);
+% %% ----- Romberg ----- %
+% [T_ii, T] = Romberg(f, x, eps, 1, 1e-4, result);
+% iter                           = size(T, 1);
+% compound_trapezoid_res_Romberg = T(:,1)    ;
+% Romberg_res                    = diag(T)   ;
+% Trapezoid_err                  = abs(result .* ones(iter, 1) - compound_trapezoid_res_Romberg);
+% Romberg_err                    = abs(result .* ones(iter, 1) - Romberg_res);
 
-figure;
-x_label = 1:iter;
-loglog(x_label, Trapezoid_err, 'ro-');
-hold on
-loglog(x_label, Romberg_err, 'ko-')  ;
-axis on;
-grid on;
-axis tight;
-% set(gca,'XDir','reverse');
-xlabel('h: Step size');
-ylabel('Error');
-legend( ...
-        'T_0^{(k)} Error', ...
-        'T_k^{(k)} Error'...
-);
+% figure;
+% x_label = 1:iter;
+% loglog(x_label, Trapezoid_err, 'ro-');
+% hold on
+% loglog(x_label, Romberg_err, 'ko-')  ;
+% axis on;
+% grid on;
+% axis tight;
+% % set(gca,'XDir','reverse');
+% xlabel('h: Step size');
+% ylabel('Error');
+% legend( ...
+%         'T_0^{(k)} Error', ...
+%         'T_k^{(k)} Error'...
+% );
 
-%% ----- Self-adaptive Simpson ----- %
-[complexity_simpson, y] = self_adaptive_simpson(f, x, eps, 1, 1e-4, 0);
+% %% ----- Self-adaptive Simpson ----- %
+% [complexity_simpson, y] = self_adaptive_simpson(f, x, eps, 1, 1e-4, 0);
 
 
 
